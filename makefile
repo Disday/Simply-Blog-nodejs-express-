@@ -2,7 +2,7 @@ install:
 	npm ci
 
 start:
-	bin/server.js
+	node bin/server.js
 
 start-dev:
 	npx nodemon bin/server.js

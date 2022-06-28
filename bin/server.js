@@ -1,4 +1,5 @@
-/* eslint-disable no-console */
+#!/usr/bin/env node
+
 import server from '../index.js';
 
 const port = 8080;
