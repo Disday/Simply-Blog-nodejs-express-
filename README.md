@@ -1,7 +1,7 @@
 # Simply-Blog (nodejs/express)
 
 ## Requirements
-1. **Nodejs** v16.0 or higher. For install you can follow link https://nodejs.org/en/
+1. **Nodejs** v16.0 or higher. For install you can follow  https://nodejs.org/en/
 2. **Make** utilty. For install use ```sudo apt install make```
 
 ## Setup
