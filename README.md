@@ -8,15 +8,11 @@
 1. Clone repository to your system with ```git clone https://github.com/Disday/Simply-Blog-nodejs-express-.git```
 **Or**
 Dowload archive and extract to any directory https://github.com/Disday/Simply-Blog-nodejs-express-/archive/refs/heads/master.zip
-2.
+2. Run installation from project directory with ```make install``` 
 
+## Run
+1. Run local server with ```make start``
+2. Open http://localhost:8080 with browser
 
 ## Run tests
-
-```sh
-make test
-```
-
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/assets/master/images/hexlet_logo128.png)](https://hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
-
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet](https://hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
+Use ```make test``` for running tests
