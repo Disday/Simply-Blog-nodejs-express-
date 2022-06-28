@@ -1,0 +1,5 @@
+extends ../layouts/app.pug
+
+block content
+  form(action=`/posts/${post.id}?_method=PATCH` method='post')
+    include _form.pug

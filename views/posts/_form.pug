@@ -1,0 +1,11 @@
+div.mb-3
+  label.form-label= 'Title'
+    sup= '*'
+  input.form-control(name='title' aria-describedby='titleHelp' value=post.title)
+  div#titleHelp.form-text= errors.titleError
+div.mb-3
+  label.form-label= 'Body' 
+    sup= '*'
+  textarea.form-control(name="body" rows="10" aria-describedby='bodyHelp')= post.body
+  div#bodyHelp.form-text= errors.bodyError
+  input.btn.btn-primary(type='submit' value='Save')
