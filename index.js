@@ -1,14 +1,14 @@
 import Express from 'express';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
-import parse from './parse.js';
+// import parse from './parse.js';
 
 import Post from './entities/Post.js';
 
 export default () => {
   const app = new Express();
   app.set('view engine', 'pug');
-  app.use('/assets', Express.static(process.env.NODE_PATH.split(':')[0]));
+  app.use('/assets', Express.static('./node_modules'));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(methodOverride('_method'));
   // app.use(parse);
@@ -30,7 +30,7 @@ export default () => {
   };
 
   const getPostById = (id) => {
-    return posts.find((post) => id === post.id)
+    return posts.find((post) => Number(id) === post.id)
   };
 
   app.get('/', (req, res) => {
@@ -99,7 +99,7 @@ export default () => {
 
   app.delete('/posts/:id', (req, res) => {
     const { id } = req.params;
-    const filtredPosts = posts.filter((post) => post.id !== id);
+    const filtredPosts = posts.filter((post) => post.id !== Number(id));
     // console.log(filtredPosts);
     posts = filtredPosts;
 
@@ -108,14 +108,14 @@ export default () => {
 
   
   app.use((res, _req, next) => {
-    console.log('normal');
+    // console.log('normal');
     // next(new Error());
     res.status(404);
     res.render('404');
   });
 
   app.use((error, req, res, next) => {
-    console.log('error!!!');
+    // console.log('error!!!');
     res.status(404);
     res.render('404');
   });
