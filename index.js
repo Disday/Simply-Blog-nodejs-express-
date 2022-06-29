@@ -29,5 +29,18 @@ export default () => {
   registerPostController(app, state.posts);
   registerUserController(app, state.users);
 
+  app.use((res, _req, next) => {
+    // console.log(res);
+    res.status(404);
+    res.render('404');
+    // next(error);
+  });
+
+  app.use((error, req, res, next) => {
+    console.log(error);
+    res.status(404);
+    res.render('404');
+  });
+
   return app;
 };

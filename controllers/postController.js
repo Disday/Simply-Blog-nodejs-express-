@@ -26,7 +26,7 @@ export default (app, posts) => {
   app.post('/posts', (req, res) => {
     const { title, body } = req.body;
     const errors = validatePostData({ title, body });
-    
+
     if (Object.keys(errors).length > 0) {
       res.status(422);
       res.render('posts/new', { errors, post: { title, body } });
@@ -34,7 +34,7 @@ export default (app, posts) => {
     }
 
     const newPost = new Post(title, body);
-    posts.push(newPost);
+    posts = [...posts, newPost];
     res.redirect(`/posts/${newPost.id}`);
   });
 
@@ -84,16 +84,6 @@ export default (app, posts) => {
     posts = filtredPosts;
 
     res.redirect('/posts');
-  });
-
-  app.use((res, _req, next) => {
-    res.status(404);
-    res.render('404');
-  });
-
-  app.use((error, req, res, next) => {
-    res.status(404);
-    res.render('404');
   });
 
 };

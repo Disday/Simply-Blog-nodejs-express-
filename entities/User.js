@@ -1,7 +1,7 @@
 export default class User {
-  constructor (name, passwordDigest) {
+  constructor(nickname, passwordDigest) {
     this.guest = false;
-    this.name = name;
+    this.nickname = nickname;
     this.passwordDigest = passwordDigest;
   }
 
