@@ -1,7 +1,7 @@
 import Express from 'express';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
-// import parse from './parse.js';
+import parse from './parse.js';
 
 
 import Post from './entities/Post.js';
