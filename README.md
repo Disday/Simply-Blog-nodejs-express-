@@ -2,7 +2,7 @@
 
 ## Requirements
 1. **Nodejs** v16.0 or higher. For install you can follow  https://nodejs.org/en/
-2. **Make** utilty. For install use ```sudo apt install make```
+2. **Make** utility. For install use ```sudo apt install make```
 
 ## Setup
 1. Clone repository to your system with ```git clone https://github.com/Disday/Simply-Blog-nodejs-express-.git```\
