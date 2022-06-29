@@ -4,7 +4,7 @@ import jestSupertestMatchers from 'jest-supertest-matchers';
 import solution from '../index.js';
 
 // const { matchers } = jestSupertestMatchers;
-const  matchers  = jestSupertestMatchers;
+const matchers = jestSupertestMatchers;
 
 describe('requests', () => {
   beforeAll(() => {
