@@ -1,35 +1,30 @@
-import session from 'express-session';
 import encrypt from '../encrypt.js';
 // import morgan from 'morgan';
 import Guest from '../entities/Guest.js';
 import User from '../entities/User.js';
 
-const validateUserData = ({ nickname, password }, users) => {
-  const errors = {};
-  if (!nickname) {
-    errors.nickname = "Can't be empty";
-  }
-
-  const isNicknameTaken = users.find((user) => user.nickname === nickname);
-  if (isNicknameTaken) {
-    errors.nickname = "Nickname is already taken";
-  }
-
-  if (!password) {
-    errors.password = "Can't be empty";
-  }
-
-  return errors;
-};
-
 export default (app, users) => {
   // app.use(morgan('combined'));
-  app.use(session({
-    secret: 'secret key',
-    resave: false,
-    saveUninitialized: false,
-  }));
+  const validateUserData = ({ nickname, password }) => {
+    const errors = {};
+    if (!nickname) {
+      errors.nickname = "Can't be empty";
+    }
 
+    const isNicknameTaken = users.find((user) => user.nickname === nickname);
+    if (isNicknameTaken) {
+      errors.nickname = "Nickname is already taken";
+    }
+
+    if (!password) {
+      errors.password = "Can't be empty";
+    }
+
+    return errors;
+  };
+
+  // BEGIN (write your solution here)
+  //session controller
   app.use((req, res, next) => {
     if (req.session?.nickname) {
       const { nickname } = req.session;
@@ -37,21 +32,46 @@ export default (app, users) => {
     } else {
       res.locals.currentUser = new Guest();
     }
+    // console.log(users, req.session.nickname);
     next();
   });
 
-  app.get('/', (_req, res) => {
-    res.render('index');
+  app.get(('/session/new'), (req, res) => {
+    const { nickname } = req.body;
+    res.render('session/new', { errors: {}, form: { nickname } });
   });
 
-  // BEGIN (write your solution here)
+  app.post('/session', (req, res) => {
+    const password = req.body.password;
+    const nickname = req.body.nickname.trim();
+    const user = users.find((user) => user.nickname === nickname);
+    // console.log(users);
+    if (user && (encrypt(password)) === user.passwordDigest) {
+      req.session.nickname = nickname;
+      res.redirect('/');
+      return;
+    }
+    res.status(422);
+    const errors = { loginFailed: 'Invalid nickname or password' };
+    res.render('session/new', { errors, form: { nickname } });
+  });
+
+  app.delete('/session', (req, res) => {
+    req.session.destroy((error) => {
+      console.log('Error during delete session', error);
+    })
+    res.redirect('/');
+  });
+
+  //user controller
   app.get('/users/new', (_req, res) => {
     res.render('users/new', { form: {}, errors: {} });
   });
 
-  app.post('/users', (req, res) => {
-    const { nickname, password } = req.body;
-    const errors = validateUserData({ nickname, password }, users);
+    app.post('/users', (req, res) => {
+    const password = req.body.password;
+    const nickname = req.body.nickname.trim();
+    const errors = validateUserData({ nickname, password });
 
     if (Object.keys(errors).length > 0) {
       res.status(422);
@@ -61,9 +81,10 @@ export default (app, users) => {
 
     const user = new User(nickname, encrypt(password));
     users = [...users, user];
-    console.log(users);
     res.redirect('/');
 
   });
+
+
   // END
 };

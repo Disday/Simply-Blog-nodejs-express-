@@ -1,16 +1,19 @@
 extends ../layouts/app.pug
 
 block content
-  form(action='/session}' method='post')
-
-div.mb-3
-  label.form-label= 'Title'
-    sup= '*'
-  input.form-control(name='title' aria-describedby='titleHelp' value=post.title)
-  div#titleHelp.form-text= errors.titleError
-div.mb-3
-  label.form-label= 'Body' 
-    sup= '*'
-  textarea.form-control(name="body" rows="10" aria-describedby='bodyHelp')= post.body
-  div#bodyHelp.form-text= errors.bodyError
-  input.btn.btn-primary(type='submit' value='Save')
+  .row.mt-3
+    .col-sm-4.mx-auto
+      h3.text-xs-center Log In
+      form(action='/session' method='post')
+        .row.form-group
+          .col-sm
+            input.form-control(name='nickname' placeholder='nickname' value=form.nickname)
+            //- if errors.nickname
+            //-   .text-warning= errors.nickname
+        .row.form-group
+          .col-sm
+            input.form-control(name='password' type='password' placeholder='password')
+            if errors.loginFailed
+              .text-warning= errors.loginFailed
+        .form-group
+          button.btn.btn-success.btn-block(type='submit') Sign up

@@ -1,11 +1,16 @@
-div.mb-3
-  label.form-label= 'Title'
-    sup= '*'
-  input.form-control(name='title' aria-describedby='titleHelp' value=post.title)
-  div#titleHelp.form-text= errors.titleError
-div.mb-3
-  label.form-label= 'Body' 
-    sup= '*'
-  textarea.form-control(name="body" rows="10" aria-describedby='bodyHelp')= post.body
-  div#bodyHelp.form-text= errors.bodyError
-  input.btn.btn-primary(type='submit' value='Save')
+.row.mt-3
+  .col-sm-4.mx-auto
+    h3.text-xs-center Registration form
+      .row.form-group
+        .col-sm
+          label.form-label= 'Title'
+            sup= '*'
+          input.form-control(name='title' aria-describedby='titleHelp' value=post.title)
+          div#titleHelp.form-text= errors.titleError
+      .row.form-group
+        .col-sm
+          label.form-label= 'Body' 
+          sup= '*'
+            textarea.form-control(name="body" rows="10" aria-describedby='bodyHelp')= post.body
+            div#bodyHelp.form-text= errors.bodyError
+            input.btn.btn-primary(type='submit' value='Save')

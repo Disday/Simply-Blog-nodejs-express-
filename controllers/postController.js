@@ -15,10 +15,6 @@ export default (app, posts) => {
 
   const getPostById = (id) => posts.find((post) => Number(id) === post.id);
 
-  app.get('/', (req, res) => {
-    res.render('index');
-  });
-
   app.get('/posts', (req, res) => {
     res.render('posts/index', { posts });
   });
