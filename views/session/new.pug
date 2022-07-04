@@ -2,18 +2,17 @@ extends ../layouts/app.pug
 
 block content
   .row.mt-3
-    .col-sm-4.mx-auto
-      h3.text-xs-center Log In
-      form(action='/session' method='post')
-        .row.form-group
-          .col-sm
-            input.form-control(name='nickname' placeholder='nickname' value=form.nickname)
-            //- if errors.nickname
-            //-   .text-warning= errors.nickname
-        .row.form-group
-          .col-sm
-            input.form-control(name='password' type='password' placeholder='password')
-            if errors.loginFailed
-              .text-warning= errors.loginFailed
-        .form-group
-          button.btn.btn-success.btn-block(type='submit') Sign up
+    h3.text-xs-center Log In
+    form(action='/session' method='post')
+      .row.form-group
+        .col-sm(style='margin-bottom: 10px')
+          label.form-label= 'Nickname'
+          input.form-control(name='nickname' value=form.nickname)
+      .row.form-group
+        .col-sm(style='margin-bottom: 10px')
+          label.form-label= 'Password'
+          input.form-control(name='password' type='password')
+          if errors.loginFailed
+            .text-danger= errors.loginFailed
+      .form-group
+        button.btn.btn-success.btn-block(type='submit') Sign up

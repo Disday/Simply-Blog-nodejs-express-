@@ -3,6 +3,8 @@ extends ../layouts/app.pug
 block content
   div
     a(href='/') Main page
+  div
+    a(href='/posts') Posts
 
   h1= `#${post.id} ${post.title}`
   div= post.body 

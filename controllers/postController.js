@@ -1,22 +1,21 @@
 import Post from '../entities/Post.js';
 
-export default (app, posts) => {
-
+export default (app, state) => {
   const validatePostData = ({ title, body }) => {
     const errors = {};
     if (!title) {
-      errors['titleError'] = "Can't be empty";
+      errors.titleError = "Can't be empty";
     }
     if (!body) {
-      errors['bodyError'] = "Can't be empty";
+      errors.bodyError = "Can't be empty";
     }
     return errors;
   };
 
-  const getPostById = (id) => posts.find((post) => Number(id) === post.id);
+  const getPostById = (id) => state.posts.find((post) => Number(id) === post.id);
 
   app.get('/posts', (req, res) => {
-    res.render('posts/index', { posts });
+    res.render('posts/index', { posts: state.posts });
   });
 
   app.post('/posts', (req, res) => {
@@ -30,7 +29,7 @@ export default (app, posts) => {
     }
 
     const newPost = new Post(title, body);
-    posts = [...posts, newPost];
+    state.posts = [...state.posts, newPost];
     res.redirect(`/posts/${newPost.id}`);
   });
 
@@ -76,10 +75,9 @@ export default (app, posts) => {
 
   app.delete('/posts/:id', (req, res) => {
     const { id } = req.params;
-    const filtredPosts = posts.filter((post) => post.id !== Number(id));
-    posts = filtredPosts;
+    const filtredPosts = state.posts.filter((post) => post.id !== Number(id));
+    state.posts = filtredPosts;
 
     res.redirect('/posts');
   });
-
 };
