@@ -16,8 +16,8 @@ export default () => {
   // app init state
   const state = {
     posts: [
-      new Post('hello', 'how are you?'),
-      new Post('nodejs', 'story about nodejs'),
+      new Post('hello', 'how are you?', 'admin'),
+      new Post('nodejs', 'story about nodejs', 'admin'),
     ],
     users: [new User('admin', encrypt('qwerty'))],
   };
@@ -43,6 +43,8 @@ export default () => {
     } else {
       res.locals.currentUser = new Guest();
     }
+    // console.log('users' , state.users);
+    // console.log('current' , res.locals.currentUser);
     next();
   });
   app.use(flash());
@@ -56,12 +58,13 @@ export default () => {
   });
 
   // error handle middlewares
-  app.use((res, req) => {
+  app.use((res, req, next) => {
     res.status(404);
     res.render('404');
+    next()
   });
 
-  app.use((error, req, res) => {
+  app.use((error, req, res, next) => {
     // console.log(error);
     res.status(404);
     res.render('404');

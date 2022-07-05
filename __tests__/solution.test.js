@@ -225,3 +225,28 @@ describe('flash message tests', () => {
     expect(res.text.includes('Good bye, admin')).toBe(true);
   });
 });
+
+// describe('authorized operations', () => {
+
+//   it('POST /users', async () => {
+
+//     const res = await request(solution())
+
+//       .post('/users')
+
+//       .type('form')
+
+//       .send({ nickname: 'nickname', password: 'qwer' })
+
+//       .redirects(1);
+
+
+
+//     expect(res).toHaveHTTPStatus(200);
+
+//     // console.log(res.text);
+
+//     // expect(res.text.includes('nickname')).toBe(true);
+
+//   });
+// });

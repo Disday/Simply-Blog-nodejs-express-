@@ -28,7 +28,8 @@ export default (app, state) => {
       return;
     }
 
-    const newPost = new Post(title, body);
+    const author = req.session.nickname;
+    const newPost = new Post(title, body, author);
     state.posts = [...state.posts, newPost];
     res.redirect(`/posts/${newPost.id}`);
   });

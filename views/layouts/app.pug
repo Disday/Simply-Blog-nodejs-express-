@@ -5,17 +5,17 @@ html
     link(rel='stylesheet' href='/assets/bootstrap/dist/css/bootstrap.css')
     script(src="/assets/bootstrap/dist/js/bootstrap.bundle.js")
   body
-  .col-sm-4.mx-auto
-      nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        a.navbar-brand(href="/") Simply Blog
-        if currentUser.isGuest()
-          ul.navbar-nav.ml-auto
-            li.nav-item
-              a.nav-link(href="/session/new") Sign in
-            li.nav-item
-              a.nav-link(href="/users/new") Sign up
-        else
-          form.form-inline.float-xs-right(action='/session?_method=DELETE' method='post')
-            button.btn.btn-link(type='submit') Sign out
-      .container
-        block content
+  .col-sm-4.mx-auto.card.mb-5.rounded.shadow.p-3
+    nav.navbar.navbar-expand-lg.navbar-light.rounded.shadow.p-0.ps-3.mb-3
+      a.navbar-brand(href="/") Simply Blog
+      if currentUser.isGuest()
+        ul.navbar-nav.ml-auto
+          li.nav-item
+            a.nav-link(href="/session/new") Sign in
+          li.nav-item
+            a.nav-link(href="/users/new") Sign up
+      else
+        form.form-inline.float-xs-right(action='/session?_method=DELETE' method='post')
+          button.btn.btn-link(type='submit') Sign out
+    .container
+      block content
