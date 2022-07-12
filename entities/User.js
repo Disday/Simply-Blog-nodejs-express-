@@ -6,4 +6,6 @@ export default class User {
   }
 
   isGuest = () => this.guest;
+
+  isAuthorOf = (post) => post.author === this.nickname;
 }

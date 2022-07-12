@@ -4,4 +4,6 @@ export default class Guest {
   }
 
   isGuest = () => this.guest;
+
+  isAuthorOf = () => false;
 }

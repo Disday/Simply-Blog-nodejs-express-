@@ -21,7 +21,6 @@ export default (app, state) => {
     return errors;
   };
 
-  // BEGIN (write your solution here)
   // session controller
   app.get(('/session/new'), (req, res) => {
     const { nickname } = req.body;
@@ -32,7 +31,7 @@ export default (app, state) => {
     const { nickname: name = '', password: pass = '' } = req.body;
     const nickname = name.trim();
     const password = pass.trim();
-    const user = state.users.find((user) => user.nickname === nickname);
+    const user = state.users.find((u) => u.nickname === nickname);
     if (user && (encrypt(password)) === user.passwordDigest) {
       req.session.nickname = nickname;
       res.flash('info', `Welcome, ${user.nickname}!`);
@@ -60,7 +59,7 @@ export default (app, state) => {
     const password = req.body.password.trim();
     const errors = validateUserData({ nickname, password });
 
-    if (Object.keys(errors).length > 0) { 
+    if (Object.keys(errors).length > 0) {
       res.status(422);
       res.render('users/new', { errors, form: { nickname, password } });
       return;
@@ -69,7 +68,7 @@ export default (app, state) => {
     const user = new User(nickname, encrypt(password));
     state.users = [...state.users, user];
     res.flash('info', `Welcome, ${user.nickname}! Your account has been created.`);
-    res.redirect('/');
+    res.redirect('/session/new');
   });
 
   // END

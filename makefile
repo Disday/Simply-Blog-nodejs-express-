@@ -9,3 +9,6 @@ start-dev:
 
 test:
 	npx jest --colors
+
+lint:
+	npx eslint .

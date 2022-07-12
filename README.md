@@ -1,5 +1,21 @@
 # Simply-Blog (nodejs/express)
 
+## Description
+Light-weight blog web-service with authentication.
+
+## Features
+- Authorization for private actions - only author has permission to edit and delete his own posting.
+- Form validation with error displaying.
+- Flash-messages for important user events.
+
+## Main dependencies
+- Express 4.18.1
+- Express-session 1.17.3
+- Bootstrap 5.1.3
+- Pug 3.0.2
+- Eslint 8.19.0
+- Jest 28.1.1
+
 ## Requirements
 1. **Nodejs** v16.0 or higher. For install you can follow  https://nodejs.org/en/
 2. **Make** utility. For install use ```sudo apt install make```

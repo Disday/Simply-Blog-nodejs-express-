@@ -28,14 +28,30 @@ export default (app, state) => {
       return;
     }
 
-    const author = req.session.nickname;
-    const newPost = new Post(title, body, author);
+    const { currentUser } = res.locals;
+    if (currentUser.isGuest()) {
+      res.status(403);
+      res.flash('info', 'Please, sign in for creating post.');
+      res.redirect('/');
+      return;
+    }
+
+    const { nickname } = currentUser;
+    const newPost = new Post(title, body, nickname);
     state.posts = [...state.posts, newPost];
     res.redirect(`/posts/${newPost.id}`);
   });
 
   app.get('/posts/new', (req, res) => {
-    res.render('posts/new', { post: {}, errors: {} });
+    const { currentUser } = res.locals;
+    if (!currentUser.isGuest()) {
+      res.render('posts/new', { post: {}, errors: {} });
+      return;
+    }
+
+    res.status(403);
+    res.flash('info', 'Please, sign in for creating post.');
+    res.redirect('/');
   });
 
   app.get('/posts/:id', (req, res, next) => {
@@ -51,24 +67,35 @@ export default (app, state) => {
   app.get('/posts/:id/edit', (req, res) => {
     const { id } = req.params;
     const post = getPostById(id);
-    // console.log(post);
+    const { currentUser } = res.locals;
+    if (currentUser.isAuthorOf(post)) {
+      res.render('posts/edit', { post, errors: {} });
+      return;
+    }
 
-    res.render('posts/edit', { post, errors: {} });
+    res.flash('info', "You don't have permission for this action");
+    res.redirect('/posts');
   });
 
   app.patch('/posts/:id', (req, res) => {
-    const { title, body } = req.body;
     const { id } = req.params;
+    const post = getPostById(id);
+    const { currentUser } = res.locals;
+    if (!currentUser.isAuthorOf(post)) {
+      res.flash('info', "You don't have permission for this action");
+      res.redirect('/posts');
+      return;
+    }
+
+    const { title, body } = req.body;
     const newPost = { title, body, id };
     const errors = validatePostData(newPost);
-
     if (Object.keys(errors).length > 0) {
       res.status(422);
       res.render('posts/edit', { errors, post: newPost });
       return;
     }
 
-    const post = getPostById(id);
     post.title = title;
     post.body = body;
     res.redirect(`/posts/${id}`);
@@ -76,9 +103,16 @@ export default (app, state) => {
 
   app.delete('/posts/:id', (req, res) => {
     const { id } = req.params;
-    const filtredPosts = state.posts.filter((post) => post.id !== Number(id));
-    state.posts = filtredPosts;
+    const post = getPostById(id);
+    const { currentUser } = res.locals;
+    if (currentUser.isAuthorOf(post)) {
+      const filtredPosts = state.posts.filter((p) => p.id !== Number(id));
+      state.posts = filtredPosts;
+      res.redirect('/posts');
+      return;
+    }
 
+    res.flash('info', "You don't have permission for this action");
     res.redirect('/posts');
   });
 };

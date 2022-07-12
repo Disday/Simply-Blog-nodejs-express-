@@ -1,14 +1,12 @@
-.row.mt-3
-  h3.text-xs-center Creating new post
-  .row.form-group
-    .col-sm(style='margin-bottom: 10px')
-      label.form-label= 'Title'
-      input.form-control(name='title' aria-describedby='titleHelp' value=post.title)
-      .text-danger= errors.titleError
-  .row.form-group
-    .col-sm(style='margin-bottom: 10px')
-      label.form-label= 'Body' 
-      textarea.form-control(name="body" rows="10" aria-describedby='bodyHelp')= post.body
-      .text-danger= errors.bodyError
-    .form-group
-      input.btn.btn-success(type='submit' value='Save')
+.row.form-group
+  .col-sm(style='margin-bottom: 10px')
+    label.form-label.fs-5= 'Title'
+    input.form-control(name='title' aria-describedby='titleHelp' value=post.title)
+    .text-danger.fs-6= errors.titleError
+.row.form-group
+  .col-sm(style='margin-bottom: 10px')
+    label.form-label.fs-5= 'Body' 
+    textarea.form-control(name="body" rows="10" aria-describedby='bodyHelp')= post.body
+    .text-danger.fs-6= errors.bodyError
+  .form-group
+    input.btn.btn-success(type='submit' value='Save')

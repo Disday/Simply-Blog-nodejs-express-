@@ -18,4 +18,10 @@ html
         form.form-inline.float-xs-right(action='/session?_method=DELETE' method='post')
           button.btn.btn-link(type='submit') Sign out
     .container
-      block content
+      for message in flash    
+        .alert.alert-dismissible.fade.show(class=`alert-${message.type}`, role="alert")
+          = message.message
+          button.btn-close(type="button", data-bs-dismiss="alert", aria-label="Close")
+          span(aria-hidden="true")
+    block content
+

@@ -2,4 +2,6 @@ extends ../layouts/app.pug
 
 block content
   form(action='/posts' method='post')
-    include _form.pug
+    .row.mt-3
+      h3.text-xs-center Creating new post
+        include _form.pug
